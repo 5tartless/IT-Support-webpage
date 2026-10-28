@@ -1,0 +1,390 @@
+/* ---------- Theme (edit these to restyle everything) ---------- */
+:root {
+  --primary: #457B9D;
+  --primary-dark: #1D3557;
+  --danger: #E63946;
+  --success: #2A9D8F;
+  --warning: #F4A261;
+  --bg: #f4f6f8;
+  --surface: #ffffff;
+  --text: #212529;
+  --muted: #6c757d;
+  --border: #dee2e6;
+  --radius: 10px;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;   /* keeps the footer at the bottom */
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+main {
+  flex: 1;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+h1, h2, h3 { color: var(--primary-dark); line-height: 1.25; }
+h1 { margin-top: 0; }
+a { color: var(--primary); }
+a:hover { color: var(--primary-dark); }
+img { max-width: 100%; }
+
+/* ---------- Header ---------- */
+header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding: 0.9rem 1.5rem;
+  background: var(--primary-dark);
+  box-shadow: var(--shadow);
+}
+
+header > a {
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+header nav,
+header nav ul {
+  display: flex;
+  gap: 1.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+header nav a {
+  color: #cfd8e3;
+  text-decoration: none;
+  padding-bottom: 2px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+header nav a:hover,
+header nav a.active {
+  color: #fff;
+  border-bottom-color: var(--warning);
+}
+
+/* ---------- Footer ---------- */
+footer {
+  margin-top: auto;
+  padding: 2rem 1.5rem;
+  background: var(--primary-dark);
+  color: #cfd8e3;
+}
+
+footer h3 { color: #fff; margin-top: 0; }
+footer ul { list-style: none; padding: 0; margin: 0; }
+footer li { margin-bottom: 0.3rem; }
+footer a { color: #fff; }
+
+/* ---------- Problem cards ---------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.card {
+  background: var(--surface);
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius);
+  border-top: 5px solid var(--primary);   /* overridden inline per problem */
+  box-shadow: var(--shadow);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.card h3 { margin: 0 0 0.5rem; }
+.card hr { border: 0; border-top: 1px solid var(--border); margin: 0.5rem 0 1rem; }
+
+.imp {
+  margin: 0.75rem 0 0.25rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--primary);
+}
+
+.card ul { margin: 0; padding-left: 1.2rem; }
+
+/* ---------- Services ---------- */
+.services {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 1.25rem;
+  list-style: none;
+  padding: 0;
+}
+
+.services li {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  padding: 1.5rem 1rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  font-weight: 600;
+}
+
+.services img { width: 56px; height: 56px; }
+
+/* ---------- Forms ---------- */
+form {
+  max-width: 620px;
+  margin: 0 auto 1.5rem;
+  padding: 1.5rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+form hr { display: none; }   /* the <hr> between fields isn't needed anymore */
+
+label {
+  display: block;
+  margin: 1rem 0 0.3rem;
+  font-weight: 600;
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 0.65rem 0.8rem;
+  font: inherit;
+  color: var(--text);
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+input:focus, select:focus, textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(69, 123, 157, 0.25);
+}
+
+textarea { min-height: 120px; resize: vertical; }
+
+/* ---------- Buttons ---------- */
+button {
+  margin-top: 1rem;
+  padding: 0.65rem 1.3rem;
+  font: inherit;
+  font-weight: 600;
+  color: #fff;
+  background: var(--primary);
+  border: 0;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+}
+
+button:hover { background: var(--primary-dark); }
+button:active { transform: scale(0.98); }
+button[value="close"] { background: var(--danger); }
+button[value="close"]:hover { background: #c1121f; }
+button + button { margin-left: 0.5rem; }
+
+/* ---------- Ticket list ---------- */
+.ticket-list {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.ticket-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 1rem 1.25rem;
+  background: var(--surface);
+  border-left: 5px solid var(--primary);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.ticket-list a { font-weight: 600; text-decoration: none; }
+
+/* ---------- Badges ---------- */
+.badge {
+  display: inline-block;
+  padding: 0.15rem 0.65rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  color: #fff;
+  background: var(--muted);
+  border-radius: 999px;
+}
+
+.state-opened       { background: var(--primary); }
+.state-in-progress  { background: var(--warning); color: #3b2a14; }
+.state-closed       { background: var(--muted); }
+
+.priority-low       { background: var(--success); }
+.priority-medium    { background: var(--warning); color: #3b2a14; }
+.priority-high      { background: var(--danger); }
+.priority-urgent    { background: #7a0019; }
+
+/* ---------- Ticket detail page ---------- */
+main > ul {
+  padding: 1rem 1.5rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  list-style: none;
+}
+
+main > ul li { padding: 0.3rem 0; border-bottom: 1px solid var(--border); }
+main > ul li:last-child { border-bottom: 0; }
+
+/* ---------- Chart ---------- */
+.chart-box {
+  max-width: 420px;
+  margin: 1.5rem auto;
+  padding: 1.25rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* ---------- Mobile ---------- */
+@media (max-width: 600px) {
+  header { justify-content: center; }
+  main { padding: 1.25rem 0.75rem; }
+  form { padding: 1rem; }
+}
+
+/* ---------- Card rail (about, home, services) ---------- */
+.card-rail {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+  margin: 1.5rem 0;
+}
+
+/* standalone cards (about page) get spacing too */
+main > .card { margin-bottom: 1.25rem; }
+.card h5 { margin: 1rem 0 0.25rem; color: var(--primary); }
+.card p:last-child { margin-bottom: 0; }
+
+/* ---------- Page headings and dividers ---------- */
+main > h1 {
+  margin-bottom: 0.5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 3px solid var(--warning);
+  display: inline-block;
+}
+
+main > h3 {
+  margin: 2rem 0 1rem;
+  padding-left: 0.75rem;
+  border-left: 5px solid var(--warning);
+}
+
+main > hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: 2rem 0;
+}
+
+main > ol {
+  padding: 1.25rem 1.5rem 1.25rem 3rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+/* ---------- Logo and slogan ---------- */
+.main-welcome {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2.5rem 1rem;
+  text-align: center;
+  background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.main-welcome img {
+  width: 300px;
+  height: auto;
+  padding: 0.75rem;
+  background: #fff;
+  border-radius: 12px;
+}
+
+.main-welcome p {
+  margin: 0;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-style: italic;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* ---------- Service cards (cards that contain an image) ---------- */
+.card:has(> img) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.card:has(> img) img {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 0.75rem;
+}
+
+.card:has(> img) button { margin-top: auto; }
+
+/* ---------- Ticket detail info box ---------- */
+.ticket-info {
+  list-style: none;
+  padding: 1rem 1.5rem;
+  background: var(--surface);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+}
+.ticket-info li { padding: 0.3rem 0; border-bottom: 1px solid var(--border); }
+.ticket-info li:last-child { border-bottom: 0; }
+
+.center {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}

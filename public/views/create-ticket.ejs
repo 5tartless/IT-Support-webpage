@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New ticket</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include ('partials/header') %>
+    <main>
+        <h1>Create ticket for IT Support</h1>
+        <p>Fill all fields to create a ticket</p>
+        <form id="ticket-form">
+            <label for="customer">Customer Name:</label>
+            <input type="text" id="customer" name="customer" required>
+            <hr>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <hr>
+
+            <label for="device">Device:</label>
+            <input type="text" id="device" name="device" required>
+            <hr>
+
+            <label for="os">Operating System:</label>
+            <input type="text" id="os" name="os" required>
+            <hr>
+
+            <label for="category">Select problem category:</label>
+            <select id="category" name="category" required>
+                <option value="">-- Choose a problem --</option>
+                <% problems.forEach(p => { %>
+                <option value="<%= p.title %>"><%= p.title %></option>
+                <% }) %>
+            </select>
+            <hr>
+
+            <label for="description">Problem description:</label>
+            <textarea id="description" name="description" required></textarea>
+
+            <button type="submit">Create ticket</button>
+            </form>
+
+        <p>You will get notified at your email once your ticket is on process and once it has been closed.</p>
+
+        <script>
+            const form = document.getElementById("ticket-form");
+
+            form.addEventListener("submit", async e => {
+                e.preventDefault();
+
+                const data = Object.fromEntries(new FormData(form));
+
+                const empty = Object.entries(data).filter(([key, value]) => value.trim() === "");
+                if (empty.length > 0) {
+                    alert("Please fill: " + empty.map(([key]) => key).join(", "));
+                    return;
+                }
+
+                const res = await fetch("/ticket/create", {
+                    method: "POST",
+                    headers: {"Content-Type": "application/json"},
+                    body: JSON.stringify(data)
+                })
+                if (res.ok) {
+                    window.location.href = "/home";
+                } else {
+                    const { error } = await res.json();
+                    alert(error || "Something went wrong, report please.")
+                }
+
+            });
+        </script>
+    </main>
+    <%- include ('partials/footer') %>
+</body>
+</html>

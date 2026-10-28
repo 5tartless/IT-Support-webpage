@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tickets</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include ('partials/header') %>
+    <main>
+        <% if (openedTickets.length || closedTickets.length) { %>
+            <h1>Opened Tickets</h1>
+            <ul class="ticket-list">
+                <% openedTickets.forEach(t => { %>
+                    <li>
+                        <a href="/ticket/<%= t._id %>"><%= t.customer %> - <%= t.category %></a>
+                        <span class="badge state-<%= t.state.replace(' ', '-') %>"><%= t.state %></span>
+                        <span class="badge priority-<%= t.priority %>"><%= t.priority %></span>
+                        <small><%= t.createdAt %></small>
+                    </li>
+                <% }) %>
+            </ul>
+            <hr>
+            <h1>Closed tickets</h1>
+            <ul class="ticket-list">
+                <% closedTickets.forEach(t => { %>
+                    <li>
+                        <a href="/ticket/<%= t._id %>"><%= t.customer %> - <%= t.category %></a>
+                        <span class="badge state-<%= t.state.replace(' ', '-') %>"><%= t.state %></span>
+                        <span class="badge priority-<%= t.priority %>"><%= t.priority %></span>
+                        <small><%= t.createdAt %></small>
+                    </li>
+                <% }) %>
+            </ul>
+
+        <% } else {%>
+            <h1>No tickets found.</h1>
+        <% } %>
+    </main>    
+    <%- include ('partials/footer') %>
+</body>
+</html>

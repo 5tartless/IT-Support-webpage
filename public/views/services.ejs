@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Services</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include ('partials/header') %>
+    <main>
+        <h1>Our Services</h1>
+        <p>We offer 6 different services focused on hardware, software, operating systems, networking, cybersecurity, and account support.</p>
+
+        <div class="card-rail">
+            <% services.forEach(service => { %>
+                <div class="card">
+                    <img src="<%= service.icon %>" alt="<%= service.name %>">
+                    <h3><%= service.name %></h3>
+                </div>
+            <% }) %>
+        </div>
+        <div class="center">
+            <a href="/ticket/new"><button type="button">Make Ticket</button></a>
+        </div>
+    </main>
+    <%- include ('partials/footer') %>
+</body>
+</html>

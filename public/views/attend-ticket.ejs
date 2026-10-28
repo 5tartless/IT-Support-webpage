@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attend Ticket</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+    <main>
+
+        <h1>Ticket: <%= ticket.category %></h1>
+
+        <ul class="ticket-info">
+            <li>Customer: <%= ticket.customer %></li>
+            <li>Email: <%= ticket.email %></li>
+            <li>Device: <%= ticket.device %></li>
+            <li>Operating System: <%= ticket.os %></li>
+            <li>Created: <%= ticket.createdAt %></li>
+            <li>State: <%= ticket.state %></li>
+            <li>Priority: <%= ticket.priority %></li>
+        </ul>
+
+        <h3>Description</h3>
+        <p><%= ticket.description %></p>
+
+        <% if (ticket.state === 'opened') { %>
+            <form action="/ticket/<%= ticket._id %>/attend" method="POST">
+            <button type="submit">Attend ticket</button>
+            </form>
+        <% } %>
+
+        <% if (ticket.state !== 'closed') { %>
+            <form action="/ticket/<%= ticket._id %>/priority" method="POST">
+            <label for="priority">Priority:</label>
+            <select id="priority" name="priority">
+                <% PRIORITIES.forEach(p => { %>
+                <option value="<%= p %>" <%= ticket.priority === p ? 'selected' : '' %>><%= p %></option>
+                <% }) %>
+            </select>
+            <button type="submit">Set priority</button>
+            </form>
+        <% } %>
+
+        <h3>Messages</h3>
+        <% if (messages.length > 0) { %>
+            <ul class="ticket-info">
+            <% messages.forEach(m => { %>
+                <li>(<%= m.createdAt %>) <%= m.text %></li>
+            <% }) %>
+            </ul>
+        <% } else { %>
+            <p>No messages yet.</p>
+        <% } %>
+
+        <% if (ticket.state === 'in progress') { %>
+            <form action="/ticket/<%= ticket._id %>/respond" method="POST">
+            <label for="text">Message:</label>
+            <textarea id="text" name="text"></textarea>
+            <button type="submit" name="action" value="continue">Continue</button>
+            <button type="submit" name="action" value="close">Close ticket</button>
+            </form>
+        <% } %>
+    </main>
+    <%- include('partials/footer') %>
+</body>
+</html>

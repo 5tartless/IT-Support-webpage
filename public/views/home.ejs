@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <%- include ('partials/header') %>
+    <main>
+        <div class="main-welcome">
+            <img src="/images/logo.png" alt="Company logo" width="150">
+            <p>"Your technology our priority"</p>
+        </div>
+        <hr>
+        <p>Welcome, feel free to explore our page to solve your problem.</p>
+        <p>Our company focuses on Customer Service over anything else while offering efficient IT Support from lots of expert people around the world.</p>
+        <hr>
+        <h3>Cybersecurity Tips</h3>
+        <ol>
+            <li>Use strong passwords.</li>
+            <li>Enable two-factor authentication.</li>
+            <li>Install antivirus software.</li>
+            <li>Keep your system updated.</li>
+            <li>Avoid suspicious links and emails.</li>
+            <li>Back up important files.</li>
+        </ol>
+        <hr>
+        <h3>Common problems and statistics</h3>
+        <div class="chart-box">
+            <canvas id="statsChart"></canvas>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+            const problems = <%- JSON.stringify(problems) %>;
+            const titles = problems.map(p => p.title)
+            const data = problems.map(p => p.stats[0])
+            const colors = problems.map(p => p.stats[1])
+
+            new Chart(document.getElementById('statsChart'), {
+                type: 'pie',
+                data: {
+                    labels: titles,
+                    datasets: [{
+                        label: 'Percentages',
+                        data,
+                        backgroundColor: colors
+                    }]
+                }
+            })
+        </script>
+        <div class="card-rail">
+
+            <% problems.forEach(problem => {%>
+                
+                <div class="card" style="border-top-color: <%= problem.stats[1] %>">
+                    <h3><%= problem.title %></h3>
+                    <hr>
+                    <p class="imp">Possible Causes</p>
+                    <ul>
+                        <% problem.causes.forEach(cause => { %>
+                            <li><%= cause %></li>
+                        <% }) %>
+                    </ul>
+                    <p class="imp">Recommended Solutions</p>
+                    <ul>
+                        <% problem.solutions.forEach(solution => { %>
+                            <li><%= solution %></li>
+                        <% }) %>
+                    </ul>
+                </div>
+
+            <% })%>
+        </div>
+    </main>
+    <%- include ('partials/footer') %>
+</body>
+</html>
